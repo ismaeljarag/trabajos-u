@@ -155,14 +155,13 @@ void aparicion_enemigos(mapa map,int player1y,int player1x,int *win)
             scanf("%d",&opc);
             if(opc==1) //ENFRENTAMIENTO
             {
-                while(enemigo1.vida >=0 && player1.vida >= 0)
-                {
+
                     printf("Tu ataque es de %d, el enemigo queda con %d\n\a",player1.ataque,enemigo1.vida);
                     enemigo1.vida-=player1.ataque;
                     printf("El enemigo ataca con %d puntos atakk, quedas con %d\n\n",enemigo1.ataque,player1.vida-enemigo1.ataque);
                     player1.vida-=enemigo1.ataque;
                     system("pause\n");
-                }
+
             }
             else
             {
@@ -216,7 +215,7 @@ void eleccion_pj()
 
     if(clase== '1')
     {
-        player1.vida=10;
+        player1.vida=1000;
         player1.ataque=5;
         strcpy(player1.nombre, "Mago");
         player1.drenaragua=4;

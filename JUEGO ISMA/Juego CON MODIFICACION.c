@@ -102,7 +102,7 @@ void tabla_puntaje()
     SetColor(6);
     printf("*********************************************************************************\n");
     printf("                                TABLA DE ESTADISTICAS\n\n  %-12s%20s%24s    POSICION PJ\n",player1.nombre,enemigo1.nombre,"Nivel mapa");
-    printf("       Vida:%3d                  Vida:%3d         %3d           Y:%3d   \n       Ataque:%3d                Ataque:%3d                     X:%3d ",player1.vida,enemigo1.vida,player1.nivel_mapa,player1.y,player1.ataque,enemigo1.ataque,player1.x);
+    printf("       Vida:%3d                  Vida:%3d         %3d           Y:%3d   \n       Ataque:%3d                Ataque:%3d                     X:%3d ",player1.vida,enemigo1.vida,player1.nivel_mapa,player1.y+1,player1.ataque,enemigo1.ataque,player1.x+1);
     printf("                                         \n       Drenar agua:%3d           Escape:%c%3d  \n ",player1.drenaragua,'%',enemigo1.escape);
     printf("********************************************************************************\n");
 }
@@ -182,18 +182,18 @@ void aparicion_enemigos(mapa map,int player1y,int player1x,int *win)
             SetColor(95);
             while(opc < '1' || opc > '2')
             {
-                printf("!Oh¡ rayos, un enemigo de tipo %s\n",enemigo1.nombre);
+                printf("%cOh! rayos, un enemigo de tipo %s\n",173,enemigo1.nombre);
                 printf("-----------------------------------\n");
                 printf("|  1.%cEnfrentar? |2.Intentar huir |\n",168);
                 printf("-----------------------------------\n");
                 fflush(stdin);
                 scanf("%c",&opc);
             }
-            if(opc=='1') //ENFRENTAMIENTO
+            if(opc=='1') /*ENFRENTAMIENTO*/
             {
-                while(enemigo1.vida >=0 && player1.vida >= 0)
-                {
-                    printf("Tu ataque es de %d, el enemigo queda con %d\n\a",player1.ataque,enemigo1.vida);
+                /*while(enemigo1.vida >=0 && player1.vida >= 0) SACAR COMENTARIO PARA DESACTIVAR ENFRENTAMIENTO POR TURNOS
+                {*/
+                    printf("Tu ataque es de %d, el enemigo queda con %d\n\a",player1.ataque,enemigo1.vida-player1.ataque);
                     enemigo1.vida-=player1.ataque;
                     printf("El enemigo ataca con %d puntos atakk, quedas con %d\n\n",enemigo1.ataque,player1.vida-enemigo1.ataque);
                     player1.vida-=enemigo1.ataque;
@@ -209,13 +209,16 @@ void aparicion_enemigos(mapa map,int player1y,int player1x,int *win)
                         enemigo1.escape=0;
 
                     }
-                    system("pause\n");
-                }
+                    system("pause\n"); opc=5;
+               /*}*/
             }
-            if(opc=='2')
+           if(opc=='2')
             {
-                if(huida()==1)
+                if(huida()==1){
                     break;
+                }
+                opc=5;
+
             }
         }
 
@@ -405,11 +408,11 @@ void mostrar_mapa(mapa map,int x,int y)
 
     if(x==tam_map-1 && y==tam_map-1)
     {
-        if(enemigo1.probabilidad_aparicion<2){
+        if(player1.nivel_mapa<2){
             enemigo1.probabilidad_aparicion++;
         }
         else{
-            enemigo1.probabilidad_aparicion+=2;
+            enemigo1.probabilidad_aparicion+=3;
         }
 
         siguiente_nivel(map);
@@ -461,7 +464,7 @@ int main() // 48 y 57
         {
             printf("Estas encerrado en un laberinto donde no puedes pasar por el agua(circulos). Debes llegar al punto final(F)\n");
             printf("mientras vas sorteando a diferentes enemigos, los cuales aumentan sus posibilidades de aparecer mientras avanzas\n");
-            printf("niveles. Al matar un enemigo ganaras diferentes puntos de estadisticas.\n");
+            printf("niveles. Al matar un enemigo ganaras diferentes puntos de estadisticas. GANAS SI LLEGAS AL NIVEL %d, SUERTE.\n",niveles_totales);
             printf("\nW - Mover hacia arriba\nA - Mover a la izquierda\nD - Mover a la derecha\nS - Mover hacia abajo\n");
             printf("M - Drenar Agua(DA)");
 
