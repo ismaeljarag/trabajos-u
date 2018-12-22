@@ -77,7 +77,7 @@ int huida()
     else
     {
         printf("Oh,oh. No has logrado escapar\n");
-        printf("El enemigo te dio con %d de atakk, quedas con %d\n",enemigo1.ataque,player1.vida);
+        printf("El enemigo te dio con %d de atakk, quedas con %d\n",enemigo1.ataque,player1.vida-enemigo1.ataque);
         player1.vida-=enemigo1.ataque;
         system("pause");
         return 0;
